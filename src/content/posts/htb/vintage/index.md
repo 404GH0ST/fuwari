@@ -168,7 +168,7 @@ getTGT.py -dc-ip 10.10.11.45 vintage.htb/FS01\$:fs01
 
 ## Enumeration
 
-### ReadGMSAPassword
+## ReadGMSAPassword
 
 <p align="center">
   <img src="/machines/vintage/gmsa01.png" alt="GMSA01$ computer" />
