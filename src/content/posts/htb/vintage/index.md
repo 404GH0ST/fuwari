@@ -421,7 +421,7 @@ Mode                 LastWriteTime         Length Name
 ```
 
 In this case, we can see that there is a file named `C4BB96844A5C9DD45D5B6A9859252BA6` which is the credentialblob. We could use this guide from [Mimikatz](https://github.com/gentilkiwi/mimikatz/wiki/howto-~-credential-manager-saved-credentials) to decrypt it using DPAPI.
-Because Windows Defender is enabled, we can't just run `mimikatz` command, so we need to decrypt it from our machine using tools like `dpapi.py` from `impacket` or [pypykatz](https://github.com/skelsec/pypykatz). I will use the former one, but let's download it first using `download C4BB96844A5C9DD45D5B6A9859252BA6` command from `evil-winrm`.
+Because Windows Defender is enabled, we can't just run `mimikatz` on the box, so we need to decrypt it from our machine using tools like `dpapi.py` from `impacket` or [pypykatz](https://github.com/skelsec/pypykatz). I will use the former one, but let's download it first using `download C4BB96844A5C9DD45D5B6A9859252BA6` command from `evil-winrm`.
 Ignore the error message after running the command, the file will be available in the current directory where you ran `evil-winrm`. After that, run the follwing command to view the content of the credential file and grab the `Guid MasterKey`.
 
 ```bash
