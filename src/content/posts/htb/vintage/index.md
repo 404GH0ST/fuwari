@@ -431,7 +431,7 @@ dpapi.py credential -f C4BB96844A5C9DD45D5B6A9859252BA6
 Next, we need to get the current user's SID using `whoami /all` and download the masterkey at `C:\Users\<username>\AppData\Roaming\Microsoft\Protect\<SID>\<GUIDMasterKey>` file. Use the following command to decrypt the masterkey file and get the key for decrypting the credential file.
 
 ```bash
-dpapi.py masterkey -sid <SIOD -f <masterkey_file> -password <password>
+dpapi.py masterkey -sid <SID> -f <masterkey_file> -password <password>
 ```
 
 ```bash
