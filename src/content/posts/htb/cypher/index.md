@@ -151,6 +151,8 @@ history
     1  neo4j-admin dbms set-initial-password <password>
 ```
 
+It can be found from the `/home/graphasm/bbot_preset.yml` file too.
+
 Just SSH into the machine as `graphasm` user.
 
 # Shell as graphasm
