@@ -17,6 +17,8 @@ TheFrizz is a medium Windows machine. The box involves attacking a domain contro
 
 # Recon
 
+## nmap
+
 `nmap` shows open ports that are common on a Domain Controller machine.
 
 ```bash
@@ -77,9 +79,9 @@ It reveals the hostname `frizzdc` and the domain `frizz.htb`, make sure to add t
 
 We didn't given any credentials and no anonymous access, so let's check the HTTP port.
 
-## 80 - TCP
+# 80 - TCP
 
-### Enumeration
+## Enumeration
 
 The landing page itself doesn't contain anything useful other than a link to the staff login page at `/Gibbon-LMS`. It should be a Gibbon LMS.
 
