@@ -2,7 +2,7 @@
 title: TheFrizz
 published: 2025-03-17
 description: "
-TheFrizz is a medium Windows machine. The box involves attacking a domain controller using Kerberos authentication vulnerabilities, abusing Group Policy Objects (GPO), and leveraging the Recycle Bin. The attack path includes obtaining credentials, manipulating GPO settings, and finally achieving NT Authority\System access.
+TheFrizz is a medium Windows machine. The box involves attacking a domain controller using Kerberos authentication vulnerabilities, abusing Group Policy Objects (GPO), and leveraging the Recycle Bin. The attack path includes obtaining credentials, manipulating GPO settings, and finally achieving system access.
 "
 image: /banner/TheFrizz.png
 tags: [Windows, Medium, Active Directory, Kerberos, Recycle Bin, GPO]
@@ -13,7 +13,7 @@ lang: "en"
 
 # Description
 
-TheFrizz is a medium Windows machine. The box involves attacking a domain controller using Kerberos authentication vulnerabilities, abusing Group Policy Objects (GPO), and leveraging the Recycle Bin. The attack path includes obtaining credentials, manipulating GPO settings, and finally achieving NT Authority\System access.
+TheFrizz is a medium Windows machine. The box involves attacking a domain controller using Kerberos authentication vulnerabilities, abusing Group Policy Objects (GPO), and leveraging the Recycle Bin. The attack path includes obtaining credentials, manipulating GPO settings, and finally achieving system access.
 
 # Recon
 
