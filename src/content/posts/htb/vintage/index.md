@@ -285,7 +285,7 @@ hashcat asrep_hash.txt <path_to_rockyou.txt>
 ```
 
 If no one has changed the passwords for `svc_ark` or `svc_ldap`, you should only be able to crack the hash for `svc_sql`.
-With the password cracked, we could spary this password with the users list we got earlier.
+With the password cracked, we could spray this password with the users list we got earlier.
 
 ```bash
 ❯ kerbrute passwordspray -d vintage.htb --dc dc01.vintage.htb users.txt '<svc_sql_password>'

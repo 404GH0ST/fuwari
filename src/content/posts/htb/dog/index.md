@@ -1,6 +1,6 @@
 ---
 title: Dog
-published: 2025-03-23
+published: 2025-03-10
 description: '
 Dog is an easy Linux machine that demonstrates exposed Git repository, vulnerable Backdrop CMS installation, and privilege escalation through Backdrop CMS bee utility program.
 '

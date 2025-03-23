@@ -20,7 +20,7 @@ Cypher is a medium-difficulty box that demonstrates Cypher injection, JAR file r
 Result of `nmap` scan :
 
 ```bash
-# Nmap 7.95 scan initiated Sat Mar  1 19:30:40 2025 as: nmap -vvv -F -4 -sSCV -oN fast_tcp-_scan.txt 10.10.11.57
+# Nmap 7.95 scan initiated Sat Mar  1 19:30:40 2025 as: nmap -vvv -F -4 -sSCV -oN fast_tcp_scan.txt 10.10.11.57
 Nmap scan report for cypher.htb (10.10.11.57)
 Host is up, received echo-reply ttl 63 (0.032s latency).
 Scanned at 2025-03-01 19:30:40 GMT for 8s
