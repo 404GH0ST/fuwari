@@ -1,6 +1,6 @@
 ---
 title: Puppy
-published: 2025-05-31
+published: 2025-05-30
 description: "
 Puppy is a medium Windows machine. This is a grey box machine with a supplied credential. With the credential, we can take advantage of GenericWrite to get access to specific shares. Then, we found a KeePass database file that contains a valid credential for another user account. This user account has GenericAll to another user account that belongs to the Remote Management Users group. There will be a backup file that contains another credential inside the machine. Using the credential, we found a saved credential in the DPAPI that contains a credential for administrative user account.
 "
