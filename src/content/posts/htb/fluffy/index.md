@@ -1,10 +1,10 @@
 ---
 title: Fluffy
 published: 2025-05-31
-description: "Fluffy is an easy Windows machine that demonstrates a Shadow Credentials technique and ESC16 vulnerability on ADCS.
+description: "Fluffy is an easy Windows machine that demonstrates a CVE-2025-24071, Shadow Credentials technique, and ESC16 vulnerability on ADCS.
 "
 image: "/banner/Fluffy.png"
-tags: [Windows, Easy, GenericAll, GenericWrite, Shadow Credentials, ADCS, ESC16]
+tags: [Windows, Easy, CVE-2025-24071, GenericAll, GenericWrite, Shadow Credentials, ADCS, ESC16]
 category: "HackTheBox"
 draft: false
 lang: "en"
@@ -12,7 +12,7 @@ lang: "en"
 
 # Description
 
-Fluffy is an easy Windows machine that demonstrates a Shadow Credentials technique and ESC16 vulnerability on ADCS.
+Fluffy is an easy Windows machine that demonstrates a CVE-2025-24071, Shadow Credentials technique, and ESC16 vulnerability on ADCS.
 
 # Recon
 
