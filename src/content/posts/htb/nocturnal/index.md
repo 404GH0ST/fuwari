@@ -337,6 +337,8 @@ if (isset($_POST['backup']) && !empty($_POST['password'])) {
 </html>
 ```
 
+## Command Injection
+
 By the looks of it, it seems like we have a command injection on the `password` but we need to bypass the `cleanEntry` function first.
 
 ```php
